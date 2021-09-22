@@ -1,0 +1,26 @@
+--
+-- Name: molecule; Type: TABLE; Schema: reaxys; Owner: -
+--
+drop table if exists reaxys.sff cascade;
+
+create table reaxys.sff_version(
+ load_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+ version text
+);
+
+CREATE TABLE reaxys.sff  (
+    XRN bigint NOT NULL,
+    smiles text,
+    sdfile text,
+    CN text,
+    MW real,
+    MF text,
+    RN text,
+    INCHI text,
+    FA text,
+    STYPE text,
+    rx_file_id integer,
+    molecule public.mol
+)
+WITH (autovacuum_enabled='false');
+
