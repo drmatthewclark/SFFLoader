@@ -1,6 +1,6 @@
 
 -- update before indexing
-UPDATE reaxys.sff  set mol = mol_from_smiles(smiles::cstring);
+UPDATE reaxys.sff  set molecule = mol_from_smiles(smiles::cstring);
 
 ALTER TABLE ONLY reaxys.sff
     ADD CONSTRAINT sff_pkey PRIMARY KEY (xrn);
