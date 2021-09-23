@@ -5,6 +5,6 @@ UPDATE reaxys.sff  set mol = mol_from_smiles(smiles::cstring);
 ALTER TABLE ONLY reaxys.sff
     ADD CONSTRAINT sff_pkey PRIMARY KEY (xrn);
 
-CREATE INDEX reaxys.sff_mol ON reaxys.sff USING gist (mol);
+CREATE INDEX sff_mol_index ON reaxys.sff USING gist (mol);
 
 
