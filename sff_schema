@@ -22,6 +22,5 @@ CREATE TABLE reaxys_sff.sff  (
     STYPE text,
     rx_file_id integer,
     molecule public.mol
-)
-WITH (autovacuum_enabled='false');
+);
 
