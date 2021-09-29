@@ -1,6 +1,4 @@
 # rmc file release number
-dbname='mclark'
-
 import xml.etree.ElementTree as ET
 import psycopg2 as psql
 from psycopg2.extensions import AsIs
@@ -10,6 +8,7 @@ import os
 import sys
 import time
 from pathlib import Path
+from dbconnect import getConnection
 
 # for rdkit Mol to Smiles
 from rdkit import Chem
@@ -121,7 +120,7 @@ def indexdb(conn):
     with open('../SFFLoader/sff_index', 'r') as f:
         sql = f.read()
 
-    print('indexing reaxys.sff')
+    print('indexing reaxys_sff')
     with conn.cursor() as cur:
         cur.execute(sql)
     conn.commit()
@@ -134,7 +133,7 @@ def readsdfile(fname, conn):
     lg = RDLogger.logger()
     lg.setLevel(RDLogger.CRITICAL)
     count = 0
-    sql = 'insert into reaxys.sff (%s) values %s;'
+    sql = 'insert into reaxys_sff.sff (%s) values %s;'
 
     with gzip.open(fname, 'rt') as file:
         # loop over concatenated files
@@ -201,11 +200,6 @@ def flush(conn):
   conn.commit()
   insertcache.clear()
 
-
-def getConnection():
-    conn=psql.connect(user=dbname)
-    return conn
-
             
 def readsdfiles():
   """ read the SDFiles. This requires special functions because this is
@@ -222,7 +216,7 @@ def readsdfiles():
   print('loading version', version)
  
   with conn.cursor() as cur:
-   cur.execute('insert into reaxys.sff_version (version) values (%s);', (version,))
+   cur.execute('insert into reaxys_sff.version (version) values (%s);', (version,))
    conn.commit()
 
   key = "_"
