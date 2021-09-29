@@ -1,10 +1,10 @@
 
 -- update before indexing
-UPDATE reaxys.sff  set molecule = mol_from_smiles(smiles::cstring);
+UPDATE reaxys_sff.sff  set molecule = mol_from_smiles(smiles::cstring);
 
-ALTER TABLE ONLY reaxys.sff
+ALTER TABLE ONLY reaxys_sff.sff
     ADD CONSTRAINT sff_pkey PRIMARY KEY (xrn);
 
-CREATE INDEX sff_mol_index ON reaxys.sff USING gist (molecule);
-CREATE INDEX sff_inchi_index on reaxys.sff (inchi);
-CREATE INDEX sff_cn_index on reaxys.sff(cn);
+CREATE INDEX sff_inchi_index on reaxys_sff.sff (inchi);
+CREATE INDEX sff_cn_index on reaxys_sff.sff(cn);
+CREATE INDEX sff_mol_index ON reaxys_sff.sff USING gist (molecule);
