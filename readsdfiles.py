@@ -129,7 +129,7 @@ def indexdb(conn):
 def readsdfile(fname, conn):
 
     """ read all of the individual SDFiles from the concatenated SDFile """
-    print('readrdfiles: ', fname)
+    print('readsdfiles: ', fname)
     lg = RDLogger.logger()
     lg.setLevel(RDLogger.CRITICAL)
     count = 0
