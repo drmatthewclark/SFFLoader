@@ -18,6 +18,7 @@ import hashlib
 global hashset
 global insertcache
 index = 0
+mydir = os.path.dirname(os.path.realpath(__file__))
 
 CHUNKSIZE = 50000
 TEST_MODE = False
@@ -107,7 +108,7 @@ def createSmiles(molblock):
 
 def initdb(conn):
 
-    with open('../SFFLoader/sff_schema', 'r') as f:
+    with open(mydir + '/sff_schema', 'r') as f:
         sql = f.read()
 
     print('initializing reaxys.sff')
@@ -117,7 +118,7 @@ def initdb(conn):
 
 
 def indexdb(conn):
-    with open('../SFFLoader/sff_index', 'r') as f:
+    with open(mydir + '/sff_index', 'r') as f:
         sql = f.read()
 
     print('indexing reaxys_sff')
