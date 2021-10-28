@@ -1,15 +1,15 @@
 --
 -- Name: molecule; Type: TABLE; Schema: reaxys; Owner: -
 --
-drop schema if exists reaxys_sff cascade;
-create schema reaxys_sff
+drop schema if exists reaxys_sff_temp cascade;
+create schema reaxys_sff_temp
 
-create table reaxys_sff.version(
+create table reaxys_sff_temp.version(
  load_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
  version text
 );
 
-CREATE TABLE reaxys_sff.sff  (
+CREATE TABLE reaxys_sff_temp.sff  (
     XRN bigint NOT NULL,
     smiles text,
     sdfile text,
@@ -24,3 +24,8 @@ CREATE TABLE reaxys_sff.sff  (
     molecule public.mol
 );
 
+
+CREATE TABLE reaxys_sff_temp.version (
+    load_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    version  text
+);

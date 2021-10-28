@@ -9,6 +9,7 @@ import sys
 import time
 from pathlib import Path
 from dbconnect import getConnection
+from dbconnect import psql_cmd
 
 # for rdkit Mol to Smiles
 from rdkit import Chem
@@ -134,7 +135,7 @@ def readsdfile(fname, conn):
     lg = RDLogger.logger()
     lg.setLevel(RDLogger.CRITICAL)
     count = 0
-    sql = 'insert into reaxys_sff.sff (%s) values %s;'
+    sql = 'insert into reaxys_sff_temp.sff (%s) values %s;'
 
     with gzip.open(fname, 'rt') as file:
         # loop over concatenated files
@@ -217,7 +218,7 @@ def readsdfiles():
   print('loading version', version)
  
   with conn.cursor() as cur:
-   cur.execute('insert into reaxys_sff.version (version) values (%s);', (version,))
+   cur.execute('insert into reaxys_sff_temp.version (version) values (%s);', (version,))
    conn.commit()
 
   key = "_"
@@ -244,4 +245,8 @@ def readsdfiles():
 
 
 readsdfiles()
+
+print( psql_cmd('drop schema reaxys_sff cascade') )
+print( psql_cmd('alter schema reaxys_sff_temp rename to reaxys_sff') )
+
 print("complete")
