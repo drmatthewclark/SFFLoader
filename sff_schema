@@ -24,8 +24,3 @@ CREATE TABLE reaxys_sff_temp.sff  (
     molecule public.mol
 );
 
-
-CREATE TABLE reaxys_sff_temp.version (
-    load_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    version  text
-);
