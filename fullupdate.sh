@@ -1,7 +1,9 @@
-#!/bin/bash -x
+#!/bin/bash
 # download latest rmc dataset
 echo -n "sff "
 source update.sh 
+source ./SFFLoader/credentials.py
+
 update $sff_download $sff
 
 cd ${release}
