@@ -74,13 +74,11 @@ def readnextSDfile(file, conn):
     if STORE_SDFILE:
        tags['sdfile'] = sdfile
 
-    smiles = ''
+    smiles = createSmiles(sdfile)
 
+    if smiles is not None:
+        tags['smiles'] = smiles
 
-    if tags['XRN'] != '21291617':  # this one molecule crashes
-        smiles = createSmiles(sdfile)
-
-    tags['smiles'] = smiles
     tags['rx_file_id'] = index; # tag the file this came from for debugging
 
     if 'RIGHT' in tags.keys():
@@ -223,12 +221,14 @@ def readsdfiles():
 
   key = "_"
   numfiles = len(glob.glob('*.sdf.gz'))
+  file_list = glob.glob('*.sdf.gz')
+  file_list.sort()
 
-  for i, filepath in enumerate(glob.iglob('*.sdf.gz')):
+  for i, filepath in enumerate(file_list):
         start = time.time()
         index = os.path.basename(filepath)
         index = int(index[index.find(key) + len(key):-7 ])
-        print('file index', index)
+        print('file index', index, 'of', str(numfiles))
         oldlen = len(hashset)
         readsdfile(filepath, conn)
         newlen = len(hashset)
